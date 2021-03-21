@@ -3,14 +3,93 @@
 }
 
 
-nav {
+.top-bar {
+  width: 99.2%;
+  height: 20%;
+  margin-top: -10px;
+  margin-bottom: -10px;
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
+  justify-content: space-between;
 }
 
+.title {
+  width: 184px;
+  background: lightgrey;
+  display: flex;
+  align-items: start;
+  padding-left: 20px;
+}
 
-input, button{
-  padding: 1rem;
-  font-size: 1.5rem;
+.search-bar {
+  display: flex;
+  align-self: center;
+  width: 184px;
+}
+
+.search-bar input {
+  height: 25px;
+  display: flex;
+  align-self: center;
+}
+
+.profile-options {
+  width: 184px;
+}
+
+.main {
+  width: 99.2%;
+  height: 1050px;
+  display: flex;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 200px;
+  height: 100%;
+  padding-left: 20px;
+  color: white;
+  background-color: #282c34;
+}
+
+.thread-box {
+  width: 100%;
+  height: 100%;
+}
+
+.thread-header {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: lightgrey;
+}
+
+.thread-body {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: grey;
+}
+
+.chat-box {
+  width: 1200px;
+  height: 99%;
+  border-style: solid;
+  display: flex;
+  align-items: center; 
+  flex-direction: column-reverse;
+}
+
+.thread-input {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: lightgrey;
 }
