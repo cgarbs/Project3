@@ -4,6 +4,7 @@ class Thread extends Component {
   render() {
     return (
       <div>
+        <h2>0</h2>
         <h2>1</h2>
         <h2>2</h2>
         <h2>3</h2>
