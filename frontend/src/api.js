@@ -18,6 +18,9 @@ const actions = {
         console.log(profile)
         return profile.data
     },
+    getUsers: async () => {
+        return await axios.get(`${serverURL}/contacts`, createHeaders())
+    },
     getMyPosts: async () => {
         return await axios.get(`${serverURL}/getMyPosts`, createHeaders())
     },

@@ -47,6 +47,12 @@ router.get('/user', authorize, (req, res) => {
 
 })
 
+router.get('/contacts', (req, res) => {
+    User.find({}).then(allUsersFromDb => {
+        res.json(allUsersFromDb)
+    })
+})
+
 
 
 router.post('/logMeIn', async (req, res) => {
