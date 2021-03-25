@@ -30,6 +30,15 @@ const actions = {
     addPost: async (post) => {
         return await axios.post(`${serverURL}/addAPost`, post, createHeaders())
     },
+    createServer: async (server) => {
+        return await axios.post(`${serverURL}/createServer`, server, createHeaders())
+    },
+    getServers: async (server) => {
+        return await axios.get(`${serverURL}/getServers`, server, createHeaders())
+    },
+    getServerThread: async (server) => {
+        return await axios.get(`${serverURL}/:id}`, server, createHeaders())
+    },
     logIn: async (profile) => {
         let res = await axios.post(`${serverURL}/logMeIn`, profile.profileObj, createHeaders())
         //Set JWT token to localStorage

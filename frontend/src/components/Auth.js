@@ -9,7 +9,6 @@ class Auth extends Component {
     }
 
     render() {
-
         return (
 
             <GoogleLogin

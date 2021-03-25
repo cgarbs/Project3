@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Switch, Route, Link } from "react-router-dom";
+import actions from "./api";
+import ThreadBox from "./components/ThreadBox.js";
+import NavBar from "./components/NavBar.js";
+import CreateServer from "./components/CreateServer.js";
+
 import Home from "./components/Home";
 import AddPost from "./components/AddPost";
 import Auth from "./components/Auth";
 import Profile from "./components/Profile";
-import { Switch, Route, Link } from "react-router-dom";
-import actions from "./api";
-import DirectMessages from "./components/DirectMessages.js";
-import Contacts from "./components/Contacts.js";
 
 // Testing Git Pull/Push
 
 class App extends Component {
+  state = {
+    user: {},
+  };
+
+  async componentDidMount() {
+    let user = await actions.getUser();
+    console.log("user is ", user);
+    this.setState({ user });
+  }
+
   render() {
     return (
       <div className="App">
@@ -30,31 +42,47 @@ class App extends Component {
         </div>
 
         <div className="main">
-          <div className="navbar">
-            <Link to="/">Home</Link>
-            <Link to="/direct-messages">Messages</Link>
-            <Link to="/groups">Groups</Link>
-            <Link to="/contacts">Contacts</Link>
-          </div>
-          <div className="thread-box">
-            <div className="thread-header">HEADER</div>
-            <div className="thread-body">
-              <div className="chat-box">
-                <Contacts />
-              </div>
-            </div>
-            <div className="thread-input">INPUT</div>
-          </div>
+          <NavBar />
+          <ThreadBox />
+        </div>
+        <div>
+          <Auth />
         </div>
 
         <Switch>
-          <Route exact path='/' render={(props) => <Home {...props} />} />
-          <Route exact path='/direct-messages' render={(props) => <DirectMessages {...props} />} />
-          <Route exact path='/auth' render={(props) => <Auth setUser={this.setUser} {...props} />} />
-          <Route exact path='/profile' render={(props) => <Profile user={this.state.user} setUser={this.setUser} {...props} />} />
-
+          <Route exact path="/" render={(props) => <Home {...props} />} />
+          <Route
+            exact
+            path="/create-server"
+            render={(props) => <CreateServer {...props} />}
+          />
+          <Route
+            exact
+            path="/:id"
+            render={(props) => <NavBar {...props} />}
+          />
+          <Route
+            exact
+            path="/add-post"
+            render={(props) => <AddPost {...props} />}
+          />
+          <Route
+            exact
+            path="/auth"
+            render={(props) => <Auth setUser={this.setUser} {...props} />}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={(props) => (
+              <Profile
+                user={this.state.user}
+                setUser={this.setUser}
+                {...props}
+              />
+            )}
+          />
         </Switch>
-
       </div>
     );
   }

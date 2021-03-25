@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 
 const Post = require('../models/Post')
 const User = require('../models/User')
+const Server = require('../models/Server')
 
 
 router.get(`/`, (req, res) => {
@@ -13,7 +14,7 @@ router.get(`/`, (req, res) => {
     })
 })
 
-
+// Messages
 router.post(`/addAPost`, authorize, (req, res) => {
 
     Post.create({ message: req.body.message, userId: res.locals.user._id })
@@ -22,7 +23,6 @@ router.post(`/addAPost`, authorize, (req, res) => {
         }).catch(console.error)
 
 })
-
 
 router.get('/getPosts', (req, res) => {
     Post.find({}).then(allPostsFromDb => {
@@ -33,6 +33,35 @@ router.get('/getPosts', (req, res) => {
 router.get('/getMyPosts', authorize, (req, res) => {
     Post.find({ userId: res.locals.user._id }).then(allPostsFromDb => {
         res.json(allPostsFromDb)
+    })
+})
+
+// Servers
+router.post(`/createServer`, authorize, (req, res) => {
+
+    Server.create({ title: req.body.title, messages: req.body.messages })
+        .then(server => {
+            res.json({ server })
+        }).catch(console.error)
+
+})
+
+
+router.get('/getServers', (req, res) => {
+    Server.find({}).then(allServersFromDb => {
+        res.json(allServersFromDb)
+    })
+})
+
+// router.get('/getServerThread', (req, res) => {
+//     Server.findById(res.).then(allServersFromDb => {
+//         res.json(allServersFromDb)
+//     })
+// })
+
+router.get('/getMyServers', (req, res) => {
+    Server.find({ userId: res.locals.user._id }).then(allServersFromDb => {
+        res.json(allServersFromDb)
     })
 })
 

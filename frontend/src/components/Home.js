@@ -2,9 +2,31 @@ import React, { Component } from "react";
 import actions from "../api";
 
 class Home extends Component {
-  render() {
-    return <div>Home</div>;
-  }
+    state = {
+        posts: []
+    }
+
+    async componentDidMount() {
+        // let res = await axios.get(`http://localhost:5000/api/getPosts`)
+        // console.log(res)
+        let res = await actions.getPosts()
+        this.setState({ posts: res.data })
+    }
+
+    showPosts = () => {
+        return this.state.posts.map(eachPost => {
+            return <li key={eachPost._id}> {eachPost.message} </li>
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                Home
+                {this.showPosts()}
+            </div>
+        );
+    }
 }
 
 export default Home;

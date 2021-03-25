@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import actions from '../api'
-const testArray = ["test", "blah", "one", "two", "three", "four", "five"];
 
 class Thread extends Component {
 
