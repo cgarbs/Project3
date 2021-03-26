@@ -18,18 +18,6 @@ const actions = {
         console.log(profile)
         return profile.data
     },
-    getUsers: async () => {
-        return await axios.get(`${serverURL}/contacts`, createHeaders())
-    },
-    getMyPosts: async () => {
-        return await axios.get(`${serverURL}/getMyPosts`, createHeaders())
-    },
-    getPosts: async () => {
-        return await axios.get(`${serverURL}/getPosts`, createHeaders())
-    },
-    addPost: async (post) => {
-        return await axios.post(`${serverURL}/addAPost`, post, createHeaders())
-    },
     createServer: async (server) => {
         return await axios.post(`${serverURL}/createServer`, server, createHeaders())
     },
@@ -37,7 +25,7 @@ const actions = {
         return await axios.get(`${serverURL}/getServers`, server, createHeaders())
     },
     getServerThread: async (server) => {
-        return await axios.get(`${serverURL}/:id}`, server, createHeaders())
+        return await axios.get(`${serverURL}/:id`, server, createHeaders())
     },
     logIn: async (profile) => {
         let res = await axios.post(`${serverURL}/logMeIn`, profile.profileObj, createHeaders())

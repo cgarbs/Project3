@@ -19,7 +19,7 @@ handleSubmit = async (event) => {
 }
 
 render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
         <div className="server-form">
 

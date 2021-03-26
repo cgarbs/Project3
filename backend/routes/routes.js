@@ -15,26 +15,26 @@ router.get(`/`, (req, res) => {
 })
 
 // Messages
-router.post(`/addAPost`, authorize, (req, res) => {
+// router.post(`/addAPost`, authorize, (req, res) => {
 
-    Post.create({ message: req.body.message, userId: res.locals.user._id })
-        .then(post => {
-            res.json({ post })
-        }).catch(console.error)
+//     Post.create({ message: req.body.message, userId: res.locals.user._id })
+//         .then(post => {
+//             res.json({ post })
+//         }).catch(console.error)
 
-})
+// })
 
-router.get('/getPosts', (req, res) => {
-    Post.find({}).then(allPostsFromDb => {
-        res.json(allPostsFromDb)
-    })
-})
+// router.get('/getPosts', (req, res) => {
+//     Post.find({}).then(allPostsFromDb => {
+//         res.json(allPostsFromDb)
+//     })
+// })
 
-router.get('/getMyPosts', authorize, (req, res) => {
-    Post.find({ userId: res.locals.user._id }).then(allPostsFromDb => {
-        res.json(allPostsFromDb)
-    })
-})
+// router.get('/getMyPosts', authorize, (req, res) => {
+//     Post.find({ userId: res.locals.user._id }).then(allPostsFromDb => {
+//         res.json(allPostsFromDb)
+//     })
+// })
 
 // Servers
 router.post(`/createServer`, authorize, (req, res) => {
@@ -46,18 +46,17 @@ router.post(`/createServer`, authorize, (req, res) => {
 
 })
 
-
 router.get('/getServers', (req, res) => {
     Server.find({}).then(allServersFromDb => {
         res.json(allServersFromDb)
     })
 })
 
-// router.get('/getServerThread', (req, res) => {
-//     Server.findById(res.).then(allServersFromDb => {
-//         res.json(allServersFromDb)
-//     })
-// })
+router.get('/:id', (req, res) => {
+    Server.findById(req.params.id).then(serverThread => {
+        res.json(serverThread)
+    })
+})
 
 router.get('/getMyServers', (req, res) => {
     Server.find({ userId: res.locals.user._id }).then(allServersFromDb => {

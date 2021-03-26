@@ -40,6 +40,7 @@ class NavBar extends Component {
 
 
   render() {
+    // console.log('SERVERLIST ===>', this.state.servers);
     return (
       <div className="navbar">
         <h1>Messages</h1>
