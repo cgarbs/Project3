@@ -5,8 +5,12 @@ class Auth extends Component {
 
     responseGoogle = async (response) => {
         let user = await actions.logIn(response)
-        this.props.setUser(user)
+        if (this.props) this.props.setUser(user)
     }
+
+    // reRoute = () => {
+    //     return this.props.history.push('/server')
+    // }
 
     render() {
         return (

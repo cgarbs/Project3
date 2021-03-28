@@ -7,23 +7,10 @@ class Profile extends Component {
         posts: []
     }
 
-    async componentDidMount() {
-        let res = await actions.getMyPosts()
-        console.log(res)
-        this.setState({ posts: res.data })
-    }
-
-
     logOut = () => {
         localStorage.removeItem('token')
         this.props.setUser({})
-    }
-
-
-    showMyPosts = () => {
-        return this.state.posts.map(eachPost => {
-            return <li key={eachPost._id}> {eachPost.message} </li>
-        })
+        this.props.history.push('/')
     }
 
     render() {
@@ -33,7 +20,7 @@ class Profile extends Component {
                 Profile
 
                 <h2>{this.props.user?.email}</h2>
-                {this.showMyPosts()}
+                {/* {this.showMyPosts()} */}
                 <button onClick={this.logOut}>Log out</button>
             </div>
         );

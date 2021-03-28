@@ -12,14 +12,11 @@ class CreateServer extends Component {
 
 handleSubmit = async (event) => {
     event.preventDefault()
-    // let res = await axios.post(`http://localhost:5000/api/addAPost`, this.state)
-
-    let res = await actions.createServer(this.state)
+    await actions.createServer(this.state)
 
 }
 
 render() {
-    // console.log(this.state)
     return (
         <div className="server-form">
 

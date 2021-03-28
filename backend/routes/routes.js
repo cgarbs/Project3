@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 
-const Post = require('../models/Post')
+const Message = require('../models/Message')
 const User = require('../models/User')
 const Server = require('../models/Server')
 
@@ -14,27 +14,6 @@ router.get(`/`, (req, res) => {
     })
 })
 
-// Messages
-// router.post(`/addAPost`, authorize, (req, res) => {
-
-//     Post.create({ message: req.body.message, userId: res.locals.user._id })
-//         .then(post => {
-//             res.json({ post })
-//         }).catch(console.error)
-
-// })
-
-// router.get('/getPosts', (req, res) => {
-//     Post.find({}).then(allPostsFromDb => {
-//         res.json(allPostsFromDb)
-//     })
-// })
-
-// router.get('/getMyPosts', authorize, (req, res) => {
-//     Post.find({ userId: res.locals.user._id }).then(allPostsFromDb => {
-//         res.json(allPostsFromDb)
-//     })
-// })
 
 // Servers
 router.post(`/createServer`, authorize, (req, res) => {
@@ -52,10 +31,20 @@ router.get('/getServers', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/server/:id', (req, res) => {
     Server.findById(req.params.id).then(serverThread => {
         res.json(serverThread)
     })
+})
+
+// SEND MESSAGE
+router.post(`/sendMessage`, authorize, (req, res) => {
+
+    Message.create({ text: req.body.message, from: res.locals.user._id, date: Date.now })
+        .then(post => {
+            res.json({ post })
+        }).catch(console.error)
+
 })
 
 router.get('/getMyServers', (req, res) => {
@@ -65,7 +54,15 @@ router.get('/getMyServers', (req, res) => {
 })
 
 
+// User List
+router.get('/users', (req, res) => {
+    User.find({}).then(allUsersFromDb => {
+        res.json(allUsersFromDb)
+    })
+})
 
+
+// User/Auth
 router.get('/user', authorize, (req, res) => {
 
     User.findById(res.locals.user._id)
@@ -74,14 +71,6 @@ router.get('/user', authorize, (req, res) => {
         }).catch(console.error)
 
 })
-
-router.get('/contacts', (req, res) => {
-    User.find({}).then(allUsersFromDb => {
-        res.json(allUsersFromDb)
-    })
-})
-
-
 
 router.post('/logMeIn', async (req, res) => {
 
@@ -98,8 +87,6 @@ router.post('/logMeIn', async (req, res) => {
         //Send token back to the frontend 
         res.json({ user, token })
     })
-
-
 })
 
 

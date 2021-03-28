@@ -1,50 +1,58 @@
 import React, { Component } from "react";
-import "../App.css";
-import actions from '../api'
-import { Switch, Route, Link } from "react-router-dom";
+import actions from "../api";
 
 class ThreadBox extends Component {
+  state = {
+    header: "",
+    messages: [],
+    message: '',
+    input: "",
+    userList: [],
+  };
 
-    state = {
-        servers: [],
-        header: '',
-        messages: [],
-        input: '',
-        userList: []
-    }
+  createThread() {
+    actions.getServerThread(this.props.match.params.id).then(res => {
+      console.log(res.data);
+      if (this.state.header !== res.data.title)
+      this.setState({ header: res.data.title, messages: res.data.messages, userList: res.data.users });
+    })
+  }
 
-    async componentDidMount() {
-        // let res = await axios.get(`http://localhost:5000/api/getPosts`)
-        // console.log(res)
-        let res = await actions.getServers();
-        this.setState({ servers: res.data });
-      }
+  showHeader = () => {
+    return this.state.header
+  };
 
-      // componentWillReceiveProps(props) {
-      //   let thread = props.params._id
-      // }
-    
-      showHeader = () => {
-        // let first = this.state.servers.[0];
-          // return this.state.servers.map((server) => {
-          //   return <h1>{server.title}</h1>;
-          // })
-        //   let header = this.state.servers[0].title;
-        //   return <h1>{header}</h1>
-      }
+  showMessages = () => {
+    return this.state.messages
+  }
+
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    let res = await actions.sendMessage(this.state)
+}
+
+  showUserList = () => {
+    return this.state.userList
+  }
 
   render() {
-    // console.log('******', this.state.servers.[1])
+    {this.createThread()}
     return (
-      <div className="thread-box">
-        <div className="thread-header">{this.showHeader()}</div>
-        <div className="thread-body">
-          <div className="chat-box">
+      <div className="main">
+        <div className="thread-box">
+          <div className="thread-header">{this.showHeader()}</div>
+          <div className="thread-body">   
+            <div className="chat-box">{this.showMessages()}</div>
+          </div>
+          <div className="user-list">{this.showUserList()}</div>
+          <div className="thread-input">
+            <form onSubmit={this.handleSubmit} >
+              <input onChange={(e) => this.setState({ message: e.target.value })} name="message" type="text" placeholder="Send a Message" />
+              <button> ✈ </button>
+            </form>
 
           </div>
         </div>
-        <div className="thread-input">INPUT</div>
-
       </div>
     );
   }

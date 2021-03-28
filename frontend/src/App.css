@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-
+/* TOPBAR */
 .top-bar {
   width: 99.2%;
   height: 20%;
@@ -36,12 +36,14 @@
   width: 184px;
 }
 
+/* MAIN CONTAINER */
 .main {
   width: 99.2%;
   height: 1050px;
   display: flex;
 }
 
+/* NAV/SIDEBAR */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -76,6 +78,8 @@
   flex-direction: column-reverse;
 }
 
+
+/* THREADBOX */
 .thread-box {
   width: 90%;
   height: 100%;
@@ -114,4 +118,9 @@
   align-items: center;
   padding-left: 20px;
   background-color: lightgrey;
+}
+
+.thread-input button {
+  width: 5%;
+  height: 50%;
 }

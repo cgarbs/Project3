@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import actions from "../api";
+import Auth from "./Auth";
 
 class Home extends Component {
 
     render() {
         return (
             <div>
-                Home
+                <Auth />
             </div>
         );
     }

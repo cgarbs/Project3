@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class TopBar extends Component {
   render() {
     return (
       <div className="top-bar">
         <div className="title">
-          <h1>Raven</h1>
+          <h1><Link to="/server">Raven</Link></h1>
         </div>
         <div className="search-bar">
           <h1>
@@ -13,7 +14,7 @@ class TopBar extends Component {
           </h1>
         </div>
         <div className="profile-options">
-          <h1>Profile</h1>
+        <h1><Link to="/profile">Profile</Link></h1>
         </div>
       </div>
     );
