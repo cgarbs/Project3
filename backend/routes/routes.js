@@ -15,7 +15,7 @@ router.get(`/`, (req, res) => {
 })
 
 
-// Servers
+// SERVERS
 router.post(`/createServer`, authorize, (req, res) => {
 
     Server.create({ title: req.body.title, messages: req.body.messages })
@@ -37,16 +37,6 @@ router.get('/server/:id', (req, res) => {
     })
 })
 
-// SEND MESSAGE
-router.post(`/sendMessage`, authorize, (req, res) => {
-
-    Message.create({ text: req.body.message, from: res.locals.user._id, date: Date.now })
-        .then(post => {
-            res.json({ post })
-        }).catch(console.error)
-
-})
-
 router.get('/getMyServers', (req, res) => {
     Server.find({ userId: res.locals.user._id }).then(allServersFromDb => {
         res.json(allServersFromDb)
@@ -54,7 +44,37 @@ router.get('/getMyServers', (req, res) => {
 })
 
 
-// User List
+// MESSAGES
+
+router.get('/getMessages', (req, res) => {
+    Message.find({}).then(allMessagesFromDb => {
+        res.json(allMessagesFromDb)
+    })
+})
+
+router.post(`/sendMessage`, authorize, (req, res) => {
+
+    Message.create({ input: req.body.message, from: res.locals.user._id, date: Date() })
+        .then(message => {
+            res.json({ message })
+        }).catch(console.error)
+})
+
+router.post(`/sendInput`, authorize, (req, res) => {
+
+    Server.findByIdAndUpdate(req.params.id)
+        .then((currentServer) => {
+            Message.create({ input: req.body.message, from: res.locals.user_id, date: Date()})
+            .then(newMessage => {
+                console.log(currentServer, newMessage)
+            })
+            res.json({ currentServer })
+        }).catch(console.error)
+})
+
+
+
+// USER LIST
 router.get('/users', (req, res) => {
     User.find({}).then(allUsersFromDb => {
         res.json(allUsersFromDb)
@@ -62,7 +82,7 @@ router.get('/users', (req, res) => {
 })
 
 
-// User/Auth
+// USER/AUTH
 router.get('/user', authorize, (req, res) => {
 
     User.findById(res.locals.user._id)
@@ -88,10 +108,6 @@ router.post('/logMeIn', async (req, res) => {
         res.json({ user, token })
     })
 })
-
-
-
-
 
 
 

@@ -28,7 +28,7 @@ class ThreadBox extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    let res = await actions.sendMessage(this.state)
+    let res = await actions.sendInput(this.state)
 }
 
   showUserList = () => {

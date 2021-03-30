@@ -19,7 +19,7 @@ const actions = {
   // USER LOGIN/AUTHENTICATION
   getUser: async () => {
     let profile = await axios.get(`${serverURL}/user`, createHeaders());
-    // console.log(profile);
+    console.log(profile);
     return profile.data;
   },
   logIn: async (profile) => {
@@ -41,10 +41,17 @@ const actions = {
   getServerThread: async (id) => {
     return await axios.get(`${serverURL}/server/${id}`, createHeaders());
   },
+
+  // MESSAGE MANIPULATION
+  getMessages: async () => {
+    return await axios.get(`${serverURL}/getMessages`, createHeaders());
+  },
   sendMessage: async (message) => {
     return await axios.post(`${serverURL}/sendMessage`, message, createHeaders())
 },
-
+  sendInput: async (message) => {
+  return await axios.post(`${serverURL}/sendInput`, message, createHeaders())
+},
 
 };
 

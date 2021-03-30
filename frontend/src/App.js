@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar.js";
 import ThreadBox from "./components/ThreadBox.js";
 import TopBar from "./components/TopBar.js";
 import CreateServer from "./components/CreateServer.js";
-import Server from "./components/Server.js";
+import Message from "./components/Message.js";
 
 import Home from "./components/Home";
 import Auth from "./components/Auth";
@@ -46,7 +46,7 @@ class App extends Component {
           <div className="main position">
             <NavBar />
             <Switch>
-              <Route exact path="/server" render={(props) => <Server {...props} />} />
+              <Route exact path="/server" render={(props) => <Message {...props} />} />
               <Route exact path="/server/:id" render={(props) => <ThreadBox {...props} />} />
               <Route exact path="/create-server" render={(props) => <CreateServer {...props} />} />
               <Route exact path="/auth" render={(props) => <Auth setUser={this.setUser} {...props} />} />
