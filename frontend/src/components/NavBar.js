@@ -26,7 +26,7 @@ class NavBar extends Component {
   render() {
     return (
         <div className="navbar">
-          <h1>Messages</h1>
+          {/* <h1>Messages</h1> */}
           <div className="servers">
             <h1>Servers</h1>
             {this.showServers()}

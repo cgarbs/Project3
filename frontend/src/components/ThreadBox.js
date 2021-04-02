@@ -5,16 +5,32 @@ class ThreadBox extends Component {
   state = {
     header: "",
     messages: [],
-    message: '',
-    input: "",
+    from: [],
+    timestamps: [],
+    threads: [],
+    message: {},
     userList: [],
   };
 
   createThread() {
     actions.getServerThread(this.props.match.params.id).then(res => {
-      console.log(res.data);
+      const messagesArray = res.data.messages.map(e => e.input)
+      const fromArray = res.data.messages.map(e => e.from.email)
+      const dateArray = res.data.messages.map(e => e.date)
+      const usersArray = res.data.users.map(e => e.email)
+      const threadArray = res.data.messages.map(e => 
+        <div key={e._id} className='thread'>
+          <div className='thread-container'>
+            <div className="thread-info">
+              <div className='thread-from'>{e.from.email}:</div> 
+              <div className='thread-date'>{e.date}</div>
+            </div>
+          <div className='thread-text'>{e.input}</div> 
+          {/* <div className='users-list'>{e.users}</div> */}
+          </div>
+        </div>)
       if (this.state.header !== res.data.title)
-      this.setState({ header: res.data.title, messages: res.data.messages, userList: res.data.users });
+      this.setState({ header: res.data.title, messages: messagesArray, from: fromArray, timestamps: dateArray, threads: threadArray, userList: usersArray });
     })
   }
 
@@ -23,16 +39,17 @@ class ThreadBox extends Component {
   };
 
   showMessages = () => {
-    return this.state.messages
+    return this.state.threads;
   }
 
   handleSubmit = async (event) => {
     event.preventDefault()
-    let res = await actions.sendInput(this.state)
+    let res = await actions.sendInput(this.props.match.params.id, this.state.message)
+    this.props.history.push('/server')
 }
 
   showUserList = () => {
-    return this.state.userList
+    return <p>This would normally be a userlist.</p>//this.state.userList
   }
 
   render() {
@@ -41,18 +58,15 @@ class ThreadBox extends Component {
       <div className="main">
         <div className="thread-box">
           <div className="thread-header">{this.showHeader()}</div>
-          <div className="thread-body">   
-            <div className="chat-box">{this.showMessages()}</div>
-          </div>
-          <div className="user-list">{this.showUserList()}</div>
+          <div className="thread-body"> {this.showMessages()}</div>
           <div className="thread-input">
             <form onSubmit={this.handleSubmit} >
-              <input onChange={(e) => this.setState({ message: e.target.value })} name="message" type="text" placeholder="Send a Message" />
-              <button> ✈ </button>
+              <input onChange={(e) => this.setState({ message: e.target.value })} name="input" type="text" placeholder="Send a Message" />
+              <button> SEND </button>
             </form>
-
           </div>
         </div>
+        <div className="user-container">{this.showUserList()}</div>
       </div>
     );
   }

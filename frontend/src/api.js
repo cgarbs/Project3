@@ -38,6 +38,10 @@ const actions = {
   getServers: async () => {
     return await axios.get(`${serverURL}/getServers`, createHeaders());
   },
+  sendInput: async (id, data) => {
+    console.log('message data sent is', data)
+    return await axios.post(`${serverURL}/server/${id}/sendInput`, { data }, createHeaders())
+  },
   getServerThread: async (id) => {
     return await axios.get(`${serverURL}/server/${id}`, createHeaders());
   },
@@ -49,9 +53,7 @@ const actions = {
   sendMessage: async (message) => {
     return await axios.post(`${serverURL}/sendMessage`, message, createHeaders())
 },
-  sendInput: async (message) => {
-  return await axios.post(`${serverURL}/sendInput`, message, createHeaders())
-},
+
 
 };
 

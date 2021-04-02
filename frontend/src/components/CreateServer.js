@@ -22,7 +22,7 @@ render() {
 
             <form onSubmit={this.handleSubmit} >
                 <input onChange={(e) => this.setState({ title: e.target.value })} name="title" type="text" placeholder="Server Title" />
-                <input onChange={(e) => this.setState({ messages: e.target.value })} name="messages" type="text" placeholder="Welcome Message" />
+                {/* <input onChange={(e) => this.setState({ messages: e.target.value })} name="messages" type="text" placeholder="Welcome Message" /> */}
                 <button> Create Server </button>
             </form>
         </div>

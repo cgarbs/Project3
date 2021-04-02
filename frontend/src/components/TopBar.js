@@ -6,7 +6,7 @@ class TopBar extends Component {
     return (
       <div className="top-bar">
         <div className="title">
-          <h1><Link to="/server">Raven</Link></h1>
+          <h1><Link to="/server">Sparc</Link></h1>
         </div>
         <div className="search-bar">
           <h1>

@@ -18,7 +18,7 @@ router.get(`/`, (req, res) => {
 // SERVERS
 router.post(`/createServer`, authorize, (req, res) => {
 
-    Server.create({ title: req.body.title, messages: req.body.messages })
+    Server.create({ title: req.body.title }) //, messages: req.body.messages 
         .then(server => {
             res.json({ server })
         }).catch(console.error)
@@ -32,10 +32,45 @@ router.get('/getServers', (req, res) => {
 })
 
 router.get('/server/:id', (req, res) => {
-    Server.findById(req.params.id).then(serverThread => {
+    Server.findById(req.params.id)
+    .populate('users messages')
+    .populate({
+        path: 'messages',
+        populate: 'from'
+    })
+    .then(serverThread => {
         res.json(serverThread)
     })
 })
+
+router.post(`/server/:id/sendInput`, authorize, (req, res) => {
+    console.log('^^^^^', req.body.data)
+    Message.create({ input: req.body.data, from: res.locals.user._id, date: new Date().toLocaleTimeString()})
+    .then(newMessage => {
+        Server.findById(req.params.id)
+        .then( res => {
+            res.messages.unshift(newMessage._id)
+            res.save()
+            // .then((res) =>
+            // res.json({ res }))
+        })
+    })
+    .catch(console.error)
+    // const { message } = req.body;
+    // console.log('****', req.body)
+    // Server.findById(req.params.id)
+    //     .then( currentServer => {
+    //         currentServer.messages.push(message)
+    //         currentServer.save().then((res) => {
+    //             res.json({ currentServer })
+    //             console.log('===>', res)
+    //         })
+    //         // console.log( '===>', currentServer )
+
+        // }).catch(console.error)
+})
+
+
 
 router.get('/getMyServers', (req, res) => {
     Server.find({ userId: res.locals.user._id }).then(allServersFromDb => {
@@ -57,18 +92,6 @@ router.post(`/sendMessage`, authorize, (req, res) => {
     Message.create({ input: req.body.message, from: res.locals.user._id, date: Date() })
         .then(message => {
             res.json({ message })
-        }).catch(console.error)
-})
-
-router.post(`/sendInput`, authorize, (req, res) => {
-
-    Server.findByIdAndUpdate(req.params.id)
-        .then((currentServer) => {
-            Message.create({ input: req.body.message, from: res.locals.user_id, date: Date()})
-            .then(newMessage => {
-                console.log(currentServer, newMessage)
-            })
-            res.json({ currentServer })
         }).catch(console.error)
 })
 
