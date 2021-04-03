@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import actions from "./api";
 
 import NavBar from "./components/NavBar.js";
@@ -28,14 +28,9 @@ class App extends Component {
   }
 
   setUser = (user) => {
-    this.setState({ user });
+    this.setState({ user }, () => console.log('======>', user) );
+   
   };
-
-  reRoute = () => {
-    if(this.state.user?.email) {
-      return <Redirect to="/server" />
-    }
-  }
 
   
   render() {
@@ -57,8 +52,7 @@ class App extends Component {
         </div>}
           {!this.state.user?.email &&
             <div className="public-landing">
-          <Route exact path="/" render={(props) => <Home {...props} />} />
-          {/* {this.reRoute()} */}
+          <Route exact path="/" render={(props) => <Home setUser={this.setUser} {...props} />} />
         </div>}
       </div>
     );

@@ -8,7 +8,7 @@ class Home extends Component {
             <div className="login-container">
                 <h1>PANDA-CHAT</h1>
                 <img src={'panda2.jpg'} alt="panda2"></img>
-                <Auth />
+                <Auth {...this.props} setUser={this.props.setUser}/>
             </div>
         );
     }

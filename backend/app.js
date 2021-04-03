@@ -5,6 +5,20 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
 
+const Pusher = require("pusher");
+
+// const pusher = new Pusher({
+//   appId: "1182565",
+//   key: "b65fc9365fa2457c27bc",
+//   secret: "67e92271361cb73a57b8",
+//   cluster: "mt1",
+//   useTLS: true
+// });
+
+// pusher.trigger("my-channel", "my-event", {
+//   message: "hello world"
+// });
+
 // const app = require('express')();
 // const http = require('http').Server(app);
 // const io = require('socket.io')(http);
@@ -29,7 +43,7 @@ mongoose
 
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:3000', process.env.clientURL] //Add client urls to allow CORS
+    origin: ['http://localhost:3000', 'https://panda-chat.netlify.app', 'https://localhost:3000', 'http://panda-chat.netlify.app'] //Add client urls to allow CORS
 }))
 
 //This is for req.body
