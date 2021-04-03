@@ -1,26 +1,30 @@
+/* * { 
+  margin: 0; 
+  padding: 0; 
+} */
+
 .App {
   text-align: center;
-  /* background-color: #151f27; */
   background-color: #1a1d1c;
-  width: 100%;
 }
 
 /* TOPBAR */
 .top-bar {
-  width: 99%;
+  /* width: 100%; */
   height: 20%;
-  /* margin-top: -10px;
-  margin-bottom: -10px; */
   display: flex;
   justify-content: space-between;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: lightgrey;
 }
 
 .title {
-  width: 184px;
+  width: 250px;
   background: #1a1d1c;
-  display: flex;
-  align-items: start;
-  /* padding-left: 20px; */
+  border-right: solid;
+  border-width: 1px;
+  border-color: lightgrey;
 }
 
 .title a {
@@ -29,19 +33,35 @@
 }
 
 .search-bar {
-  display: flex;
   align-self: center;
-  width: 184px;
+  width: 250px;
 }
 
 .search-bar input {
+  width: 250px;
   height: 25px;
   display: flex;
   align-self: center;
+  border-style: none;
+  background-color:#313335;
+  color: white;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(51, 51, 51);
+  font-size: 16px;
+  padding: 5px 5px 5px 5px;
+}
+
+.search-bar input:focus {
+  outline: none;
 }
 
 .profile-options {
-  width: 184px;
+  width: 257px;
+  border-left: solid;
+  border-width: 1px;
+  border-color: lightgrey;
 }
 
 .profile-options a {
@@ -51,12 +71,15 @@
 
 /* MAIN CONTAINER */
 .main {
-  width: 99%;
   height: 1275px;
   display: flex;
 }
 
-.clientPage {
+.main-box {
+  display: flex;
+}
+
+.client-page {
   width: 100%;
 }
 
@@ -71,8 +94,7 @@
   color: white;
   background-color: #252927;
   font-size: 14px;
-  border-style: solid;
-  border-right: none;
+  border-right: solid;
   border-width: 1px;
   border-color: lightgrey;
 }
@@ -97,18 +119,18 @@
   height: 100px;
   display: flex;
   flex-direction: column-reverse;
+  margin-bottom: 20px;
 }
 
 
 /* THREADBOX */
 .thread-box {
-  width: 90%;
+  width: 2051px;
   height: 100%;
-  border-style: solid;
-  border-width: 1px;
-  border-color: lightgrey;
 }
 
+
+/* THREAD HEADER */
 .thread-header {
   width: 100%;
   height: 5%;
@@ -121,6 +143,7 @@
   color: white;
 }
 
+/* THREAD BODY */
 .thread-body {
   width: 100%;
   height: 90%;
@@ -128,19 +151,26 @@
   align-items: center;
   flex-direction: column-reverse;
   overflow-y: auto;
-  /* padding-left: 20px; */
   background-color: white;
+  border-top: solid;
+  border-width: 1px;
 }
 
-/* .chat-box {
-  width: 99%;
-  height: 80%;
-  overflow-y: auto;
-  display: flex;
-  align-items: center; 
-  flex-direction: column-reverse;
-} */
+.thread-body::-webkit-scrollbar {
+  width: .5em;
+}
 
+.thread-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
+}
+ 
+.thread-body::-webkit-scrollbar-thumb {
+  background-color: rgb(200, 200, 200);
+  outline: 2px solid darkgrey;
+}
+
+
+/* THREAD INPUT */
 .thread-input {
   width: 100%;
   height: 5%;
@@ -151,18 +181,19 @@
 }
 
 .thread-input input {
-  width: 1000px;
+  width: 1940px;
   height: 30px;
   border-style: none;
-  background-color:#3f4346;
+  background-color:#313335;
   color: white;
   border-radius: 3px;
-  margin-right: 5px;
+  margin-right: 15px;
   margin-left: -10px;
   border-style: solid;
   border-width: 1px;
-  border-color: grey;
+  border-color: rgb(51, 51, 51);
   font-size: 16px;
+  padding: 5px;
 }
 
 .thread-input input:focus {
@@ -177,6 +208,8 @@
   color: white;
 }
 
+
+/* THREADBOX CONTENT */
 .thread {
   width: 100%;
   height: 80px;
@@ -205,11 +238,11 @@
 .thread-date {
   width: 50%;
   height: 25px;
-  margin-top: 2px;
+  margin-top: 4px;
   display: flex;
   align-self: flex-start;
   color: grey; 
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .thread-text {
@@ -228,16 +261,162 @@
 /* USER LIST */
 .user-container {
   width: 250px;
-  color: white;
+  height: 100%;
   background-color: #252927;
-  border-style: solid;
+  border-left: solid;
   border-width: 1px;
   border-color: lightgrey;
 }
 
-/* .publicLanding {
-  background-color: red;
-  width: 150px;
-  height: 300px;
+.users-header {
+  height: 5%;
   display: flex;
-} */
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #028050;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.users-list {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: auto;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  border-top: solid;
+  border-width: 1px;
+}
+
+.users-footer {
+  width: 99%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  background-color: #252927;
+}
+
+.users-footer button {
+  height: 26px;
+  border-radius: 3px;
+  border-style: none;
+  background-color:#a0a4a7;
+  color: white;
+}
+
+/* LANDING PAGE */
+.public-landing {
+  background-color: #1a1d1c;
+  width: 2543px;
+  height: 1367px;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: space-evenly;
+}
+
+.login-container {
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: grey;
+  border-width: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+
+.public-landing h1 {
+  width: 300px;
+  height: 100px;
+  background-color: #252927;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 0px;
+  /* margin-bottom: -100px; */
+}
+
+.public-landing img {
+  width: 300px;
+}
+.public-landing button {
+  width: 120px;
+  margin-bottom: 50px;
+}
+
+.welcome {
+  width: 2051px;
+  height: 100%;
+  border-right: solid;
+  border-width: 1px;
+  color: white;
+  border-color: lightgrey;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome h1 {
+  margin-top: 300px;
+}
+.welcome img {
+  width: 400px;
+  margin-bottom: 500px;
+  margin-left: 30px;
+}
+
+.profile {
+  width: 2051px;
+  height: 100%;
+  border-right: solid;
+  border-width: 1px;
+  color: white;
+  border-color: lightgrey;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-container {
+  width: 350px;
+  height: 200px;
+  color: black;
+  background-color: white;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: grey;
+  border-width: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile h3 {
+  margin-top: 100px;
+  margin-bottom: -10px;
+}
+
+.profile button {
+  width: 75px;
+  margin-bottom: 100px;
+}
+
+
+

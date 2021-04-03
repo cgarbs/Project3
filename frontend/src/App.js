@@ -27,26 +27,27 @@ class App extends Component {
     this.setState({ user, loggedIn: true });
   }
 
-  reroute = () => {
-    if(this.state.loggedIn === true) {
-      return <Redirect to="/server"/>
-    }
-  }
-
   setUser = (user) => {
     this.setState({ user });
   };
 
+  reRoute = () => {
+    if(this.state.user?.email) {
+      return <Redirect to="/server" />
+    }
+  }
+
+  
   render() {
     return (
       <div className="App">
         {this.state.user?.email && 
-        <div className="clientPage">
+        <div className="client-page">
           <TopBar />
-          <div className="main position">
+          <div className="main">
             <NavBar />
             <Switch>
-              <Route exact path="/server" render={(props) => <Message {...props} />} />
+              <Route exact path="/" render={(props) => <Message {...props} />} />
               <Route exact path="/server/:id" render={(props) => <ThreadBox {...props} />} />
               <Route exact path="/create-server" render={(props) => <CreateServer {...props} />} />
               <Route exact path="/auth" render={(props) => <Auth setUser={this.setUser} {...props} />} />
@@ -54,12 +55,15 @@ class App extends Component {
             </Switch>
           </div>
         </div>}
-        <div className="publicLanding">
+          {!this.state.user?.email &&
+            <div className="public-landing">
           <Route exact path="/" render={(props) => <Home {...props} />} />
-          {this.state.loggedIn && this.reroute()}
-        </div>
+          {/* {this.reRoute()} */}
+        </div>}
       </div>
     );
   }
 }
 export default App;
+
+

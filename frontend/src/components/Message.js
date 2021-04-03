@@ -30,18 +30,9 @@ class Message extends Component {
 
   render() {
     return (
-        <div className="thread-box">
-          {/* <div className="thread-header">HEADER</div>
-          <div className="thread-body">   
-            <div className="chat-box">
-              <form onSubmit={this.handleSubmit} >
-                <input onChange={(e) => this.setState({ input: e.target.value })} name="input" type="text" placeholder="Write Message" />
-                <button> Send Message </button>
-              </form>
-            </div>
-          </div>
-          <div className="user-list"></div>
-          <div className="thread-input">INPUT</div> */}
+        <div className='welcome'>
+          <h1>Welcome!</h1>
+          <img src={"panda.png"} alt="panda"></img>
         </div>
     );
   }

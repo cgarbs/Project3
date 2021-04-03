@@ -8,10 +8,6 @@ class Auth extends Component {
         if (this.props) this.props.setUser(user)
     }
 
-    // reRoute = () => {
-    //     return this.props.history.push('/server')
-    // }
-
     render() {
         return (
 

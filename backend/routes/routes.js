@@ -17,12 +17,10 @@ router.get(`/`, (req, res) => {
 
 // SERVERS
 router.post(`/createServer`, authorize, (req, res) => {
-
-    Server.create({ title: req.body.title }) //, messages: req.body.messages 
+    Server.create({ title: req.body.title, admin: res.locals.user._id, users: res.locals.user._id }) //, messages: req.body.messages 
         .then(server => {
             res.json({ server })
         }).catch(console.error)
-
 })
 
 router.get('/getServers', (req, res) => {
@@ -44,7 +42,7 @@ router.get('/server/:id', (req, res) => {
 })
 
 router.post(`/server/:id/sendInput`, authorize, (req, res) => {
-    console.log('^^^^^', req.body.data)
+    // console.log('^^^^^', req.body.data)
     Message.create({ input: req.body.data, from: res.locals.user._id, date: new Date().toLocaleTimeString()})
     .then(newMessage => {
         Server.findById(req.params.id)
@@ -56,21 +54,7 @@ router.post(`/server/:id/sendInput`, authorize, (req, res) => {
         })
     })
     .catch(console.error)
-    // const { message } = req.body;
-    // console.log('****', req.body)
-    // Server.findById(req.params.id)
-    //     .then( currentServer => {
-    //         currentServer.messages.push(message)
-    //         currentServer.save().then((res) => {
-    //             res.json({ currentServer })
-    //             console.log('===>', res)
-    //         })
-    //         // console.log( '===>', currentServer )
-
-        // }).catch(console.error)
 })
-
-
 
 router.get('/getMyServers', (req, res) => {
     Server.find({ userId: res.locals.user._id }).then(allServersFromDb => {
@@ -79,8 +63,16 @@ router.get('/getMyServers', (req, res) => {
 })
 
 
-// MESSAGES
+// USER LIST
+router.get('/getUsers', (req, res) => {
+    User.find({}).then(allUsersFromDb => {
+        res.json(allUsersFromDb)
+    })
+})
 
+
+
+// MESSAGES
 router.get('/getMessages', (req, res) => {
     Message.find({}).then(allMessagesFromDb => {
         res.json(allMessagesFromDb)
@@ -93,15 +85,6 @@ router.post(`/sendMessage`, authorize, (req, res) => {
         .then(message => {
             res.json({ message })
         }).catch(console.error)
-})
-
-
-
-// USER LIST
-router.get('/users', (req, res) => {
-    User.find({}).then(allUsersFromDb => {
-        res.json(allUsersFromDb)
-    })
 })
 
 
@@ -132,10 +115,6 @@ router.post('/logMeIn', async (req, res) => {
     })
 })
 
-
-
-
-
 function authorize(req, res, next) {
     let token = req.headers['authorization'].split(' ')[1]
 
@@ -155,7 +134,21 @@ function authorize(req, res, next) {
 }
 
 
-
-
-
 module.exports = router
+
+
+
+// CODE SNIPPETS
+
+    // const { message } = req.body;
+    // console.log('****', req.body)
+    // Server.findById(req.params.id)
+    //     .then( currentServer => {
+    //         currentServer.messages.push(message)
+    //         currentServer.save().then((res) => {
+    //             res.json({ currentServer })
+    //             console.log('===>', res)
+    //         })
+    //         // console.log( '===>', currentServer )
+
+        // }).catch(console.error)

@@ -10,14 +10,24 @@ class ThreadBox extends Component {
     threads: [],
     message: {},
     userList: [],
+    allUsers: [],
+    toggle: false
   };
+
+  async componentDidMount() {
+    let res = await actions.getUsers();
+    const allUsers = res.data.map(e => <button>{e._id}</button>)
+    this.setState({ allUsers: allUsers });
+  }
 
   createThread() {
     actions.getServerThread(this.props.match.params.id).then(res => {
-      const messagesArray = res.data.messages.map(e => e.input)
-      const fromArray = res.data.messages.map(e => e.from.email)
-      const dateArray = res.data.messages.map(e => e.date)
-      const usersArray = res.data.users.map(e => e.email)
+
+      const messagesArray = [...res.data.messages].map(e => e.input)
+      const fromArray = [...res.data.messages].map(e => e.from.email)
+      const dateArray = [...res.data.messages].map(e => e.date)
+      const usersArray = [...res.data.users].map(e => e.email)
+
       const threadArray = res.data.messages.map(e => 
         <div key={e._id} className='thread'>
           <div className='thread-container'>
@@ -26,7 +36,7 @@ class ThreadBox extends Component {
               <div className='thread-date'>{e.date}</div>
             </div>
           <div className='thread-text'>{e.input}</div> 
-          {/* <div className='users-list'>{e.users}</div> */}
+
           </div>
         </div>)
       if (this.state.header !== res.data.title)
@@ -43,19 +53,31 @@ class ThreadBox extends Component {
   }
 
   handleSubmit = async (event) => {
-    event.preventDefault()
-    let res = await actions.sendInput(this.props.match.params.id, this.state.message)
-    this.props.history.push('/server')
+    console.log('BEFORE!!!', this.state.messages)
+    // event.preventDefault()
+    actions.sendInput(this.props.match.params.id, this.state.message)
+    console.log('AFTER!!!', this.state.messages)
 }
 
   showUserList = () => {
-    return <p>This would normally be a userlist.</p>//this.state.userList
+    return this.state.userList
+    // return this.state.allUsers
+  }
+
+  showAllUsers = () => {
+    return this.state.allUsers
+  }
+
+  toggleUsers = () => {
+    // e.preventDefault()
+    // this.setState(prevState => ({ toggle: !prevState.toggle }));
+    console.log('TOGGLE IS', this.state.toggle)
   }
 
   render() {
     {this.createThread()}
     return (
-      <div className="main">
+      <div className="main-box">
         <div className="thread-box">
           <div className="thread-header">{this.showHeader()}</div>
           <div className="thread-body"> {this.showMessages()}</div>
@@ -66,7 +88,11 @@ class ThreadBox extends Component {
             </form>
           </div>
         </div>
-        <div className="user-container">{this.showUserList()}</div>
+        <div className="user-container">
+          <div className="users-header">USERS</div>
+          <div className="users-list">{this.showUserList()}</div>
+          <div className="users-footer"> <button onClick={() => this.forceUpdate}>ADD USERS</button> </div>
+        </div>
       </div>
     );
   }

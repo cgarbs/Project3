@@ -45,15 +45,17 @@ const actions = {
   getServerThread: async (id) => {
     return await axios.get(`${serverURL}/server/${id}`, createHeaders());
   },
-
   // MESSAGE MANIPULATION
   getMessages: async () => {
     return await axios.get(`${serverURL}/getMessages`, createHeaders());
   },
   sendMessage: async (message) => {
     return await axios.post(`${serverURL}/sendMessage`, message, createHeaders())
-},
-
+  },
+  // USER MANIPULATION
+  getUsers: async () => {
+    return await axios.get(`${serverURL}/getUsers`, createHeaders());
+  },
 
 };
 
